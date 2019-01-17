@@ -1,13 +1,15 @@
 import React from 'react'
 
-import {Navbar} from './components'
+import {PieChart, Navbar} from './components'
 import Routes from './routes'
 
 const App = () => {
   return (
     <div>
-      <Navbar />
-      <Routes />
+      <h1>Hello from APP</h1>
+      {/* <Navbar /> */}
+      {/* <Routes /> */}
+      <PieChart />
     </div>
   )
 }

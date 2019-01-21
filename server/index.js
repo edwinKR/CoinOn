@@ -14,6 +14,10 @@ const app = express()
 const socketio = require('socket.io')
 module.exports = app
 
+//Added for PUSHER!! (Edwin)
+require('dotenv').config({path: 'variables.env'})
+const cors = require('cors')
+
 // This is a global Mocha hook, used for resource cleanup.
 // Otherwise, Mocha v4+ never quits after tests.
 if (process.env.NODE_ENV === 'test') {
@@ -45,7 +49,7 @@ passport.deserializeUser(async (id, done) => {
 const createApp = () => {
   // logging middleware
   app.use(morgan('dev'))
-
+  app.use(cors())
   // body parsing middleware
   app.use(express.json())
   app.use(

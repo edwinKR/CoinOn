@@ -1,17 +1,20 @@
-import React from 'react'
+import React, {Component} from 'react'
 
 // import queue from 'queue'
 // import topojson from 'topojson'
 import * as d3 from 'd3'
+// import { TableForm } from './components'
+import TableForm from './TableForm'
+// import { TableForm } from './components'
 
-class PieChart extends React.Component {
+class PieChart extends Component {
   constructor() {
     super()
     this.state = {
       data: [
-        {id: 0, product: 'Hoodie', count: 12},
-        {id: 1, product: 'Jacket', count: 7},
-        {id: 2, product: 'Snuggie', count: 6}
+        {id: 0, action: 'Hoodie', count: 12},
+        {id: 1, action: 'Jacket', count: 7},
+        {id: 2, action: 'Snuggie', count: 6}
       ]
     }
   }
@@ -39,8 +42,8 @@ class PieChart extends React.Component {
       .innerRadius(0)
       .outerRadius(100)
 
-    let interpolate = d3.interpolateRgb('#eaaf79', '#bc3358', 'ffffff')
-    console.log('interpoloate ==> ', interpolate)
+    // let interpolate = d3.interpolateRgb('#eaaf79', '#bc3358', 'ffffff')
+    // console.log('interpoloate ==> ', interpolate)
     let sliceColor = d3.scaleOrdinal(d3.schemeCategory10)
 
     return (
@@ -67,6 +70,8 @@ class PieChart extends React.Component {
             })}
           </g>
         </svg>
+
+        <div>{/* <TableForm data={this.state.data} /> */}</div>
       </div>
     )
   }

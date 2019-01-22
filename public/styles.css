@@ -1,7 +1,19 @@
-svg,
-input {
+svg {
   display: block;
   margin: 0 auto;
+}
+
+#range-input {
+  width: 25%;
+  height: 14px;
+  cursor: pointer;
+  background: #529de1;
+  border: 0px solid #000000;
+  border-radius: 28px;
+  box-shadow: 1px 1px 1px #50555c;
+  /* border-color: transparent; */
+  /* color: transparent; */
+  margin-top: 2px;
 }
 
 .tooltip {

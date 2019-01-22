@@ -7,7 +7,8 @@ import DataFetch from './components/DataFetch'
 const App = () => {
   return (
     <div>
-      <h1>Hello from APP</h1>
+      <h2>Stackathon Project:</h2>
+      <h1>"CoinOn"</h1>
       {/* <Container /> */}
       <DataFetch />
     </div>

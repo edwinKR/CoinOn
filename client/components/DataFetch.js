@@ -193,16 +193,11 @@ class DataFetch extends Component {
 
   render() {
     const {coinData, inputNum} = this.state
-    console.log('=coinList==>', coinData)
-    console.log('=inputNum==>', inputNum)
 
     if (coinData.length === 0) return <h1>No Coin Data</h1>
     else {
-      console.log('INSIDE RENDER METHOD)!!!!')
-
       return (
         <div>
-          <h1>Stakathon Project: </h1>
           <h2>Playing with D3.js in React</h2>
           <svg version="1.1" baseProfile="full" />
           <input

@@ -51,6 +51,7 @@
     "d3-array": "^2.0.3",
     "d3-fetch": "^1.1.2",
     "d3-hexbin": "^0.2.2",
+    "d3-scale": "^2.1.2",
     "devextreme": "^18.2.4",
     "devextreme-react": "^18.2.4",
     "dotenv": "^6.2.0",

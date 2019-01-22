@@ -4,10 +4,6 @@ module.exports = router
 const axios = require('axios')
 const safeJsonStringify = require('safe-json-stringify')
 
-// const API_KEY = {
-//   key: process.env.key
-// }
-
 router.get('/:cryptocurrency/:currency', async (req, res, next) => {
   try {
     const currencyData = await axios.get(

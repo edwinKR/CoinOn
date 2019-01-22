@@ -2,13 +2,11 @@ import React, {Component} from 'react'
 import * as d3 from 'd3'
 import {scaleLinear} from 'd3-scale'
 import {max} from 'd3-array'
-import {constants} from 'os'
-import Form from './Form'
 
 const axios = require('axios')
 
-const width = 1000
-const height = 900
+const width = 1500
+const height = 1000
 const padding = 50
 
 //helperFunction to filter and exclude the 'null' values
@@ -30,7 +28,8 @@ class DataFetch extends Component {
   constructor() {
     super()
     this.state = {
-      coinData: []
+      coinData: [],
+      inputNum: 600
     }
   }
 
@@ -43,41 +42,31 @@ class DataFetch extends Component {
       coinData: data
     })
 
-    this.createScatterChart()
+    this.createScatterChart(this.state.inputNum)
   }
 
   componentDidUpdate() {
-    this.createScatterChart()
+    const {inputNum} = this.state
+    console.log('compDidMount!!!!', inputNum)
+    this.createScatterChart(inputNum)
   }
 
-  // shouldComponentUpdate() {
-  //   return false;
-  // }
-
-  createScatterChart = () => {
+  createScatterChart = inputNum => {
     console.log('===> triggered in createScatterChart()???')
     //Scale setup
     const {coinData} = this.state
-    // const dataMax = max(coinData)
-    // console.log('===dataMax>>>> ', dataMax)
-    // const xScale = scaleLinear()
-    // .domain(d3.max(coinData, d => Number(d.total_supply)))
-    //   .range([padding, width + padding]);
     const xScale = scaleLinear()
       .domain(d3.extent(coinData, d => d.total_supply / 1800))
-      // .domain(d3.max(coinData, d => d.total_supply))
-      .range([80, 800])
+      .range([padding, 800])
 
     const yScale = scaleLinear()
       .domain(d3.extent(coinData, d => d.price_usd / 5000))
-      // .domain(d3.max(coinData, d => d.price_usd))
       .range([height - padding, padding])
 
     const rScale = scaleLinear()
       .domain(
         d3.extent(coinData, d => {
-          //console.log('D what are you???? ===>', typeof d.available_supply)
-          return d.available_supply / 600
+          return d.available_supply / inputNum
         })
       )
       .range([0, 80])
@@ -122,7 +111,7 @@ class DataFetch extends Component {
       .attr('y', height - padding)
       .attr('dy', padding)
       .style('text-anchor', 'middle')
-      .text('Market price per crypto')
+      .text('Total Supply')
 
     svg
       .append('text')
@@ -130,7 +119,7 @@ class DataFetch extends Component {
       .attr('x', -height / 2)
       .attr('dy', padding / 2)
       .style('text-anchor', 'middle')
-      .text('Total Supply per crypto')
+      .text('Market price (USD)')
 
     svg
       .append('text')
@@ -138,26 +127,7 @@ class DataFetch extends Component {
       .attr('dy', '1em')
       .style('text-anchor', 'middle')
       .style('font-size', '2em')
-      .text('Crypto Total Supply vs. Price Rate')
-
-    // svg
-    //   .selectAll('circle')
-    //   .data(coinData)
-    //   .enter()
-    //   .append('circle')
-    //   .attr('cx', d => xScale((d.total_supply)))
-    //   .attr('cy', d => yScale(d.price_usd))
-    //   .attr('r', d => rScale(d.available_supply))
-    //   .attr('fill', d => fScale(d.price_btc))
-    //   .attr('stroke', '#fff')
-
-    // d3.select('input')
-    //   .property('min', yearRange[0])
-    //   .property('max', yearRange[1])
-    //   .property('value', yearRange[0])
-    //   .on('input', () => drawPlot(+d3.event.target.value));
-
-    // console.log('svg ???? ', svg)
+      .text('<Crypto Total Supply vs. Price Rate>')
 
     //Setting tooltip
     const update = svg
@@ -192,9 +162,7 @@ class DataFetch extends Component {
   }
 
   showTooltip = d => {
-    console.log('INSIDE showTOOLTIP!!!!!', d)
     const tooltip = d3.select('.tooltip')
-    console.log('INSIDE tooltip', tooltip)
 
     tooltip
       .style('opacity', 1)
@@ -217,9 +185,16 @@ class DataFetch extends Component {
     d3.select('.tooltip').style('opacity', 0)
   }
 
+  handleChange = event => {
+    this.setState({
+      inputNum: event.target.value
+    })
+  }
+
   render() {
-    const {coinData} = this.state
+    const {coinData, inputNum} = this.state
     console.log('=coinList==>', coinData)
+    console.log('=inputNum==>', inputNum)
 
     if (coinData.length === 0) return <h1>No Coin Data</h1>
     else {
@@ -229,13 +204,16 @@ class DataFetch extends Component {
         <div>
           <h1>Stakathon Project: </h1>
           <h2>Playing with D3.js in React</h2>
-          <Form />
-          <svg
-            version="1.1"
-            baseProfile="full"
-            // xmlns="http://www.w3.org/2000/svg" >\
+          <svg version="1.1" baseProfile="full" />
+          <input
+            type="range"
+            step="1"
+            min="300"
+            max="800"
+            id="range-input"
+            defaultValue={inputNum}
+            onChange={this.handleChange}
           />
-          <input type="range" step="1" />
           <div className="tooltip" />
         </div>
       )
@@ -244,5 +222,3 @@ class DataFetch extends Component {
 }
 
 export default DataFetch
-
-// 5c7cef9c-7eec-4adb-afef-2be547a3ac03

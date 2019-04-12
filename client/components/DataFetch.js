@@ -5,9 +5,9 @@ import {max} from 'd3-array'
 
 const axios = require('axios')
 
-const width = 1500
-const height = 1000
-const padding = 50
+const width = 2000
+const height = 2000
+const padding = 100
 
 //helperFunction to filter and exclude the 'null' values
 function containsKeys(obj) {

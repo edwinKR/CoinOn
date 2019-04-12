@@ -9,7 +9,6 @@ const App = () => {
     <div>
       <h2>Stackathon Project:</h2>
       <h1>"CoinOn"</h1>
-      {/* <Container /> */}
       <DataFetch />
     </div>
   )
